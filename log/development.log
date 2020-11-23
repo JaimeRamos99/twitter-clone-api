@@ -1352,3 +1352,4 @@ Completed 200 OK in 17ms (Views: 13.1ms | ActiveRecord: 1.2ms | Allocations: 419
 
 
   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m

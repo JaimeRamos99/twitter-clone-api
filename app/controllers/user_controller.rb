@@ -48,7 +48,7 @@ class UserController < ApplicationController
   def followers
     if Current.user.authenticated == true
       @user = User.find_by(username: params[:username])
-      if @user && @user.authenticate(params[:password])
+      if @user.present?
         sql = "SELECT username, name
          FROM users
          JOIN relation_follows ON users.id = relation_follows.follower_id
@@ -66,7 +66,7 @@ class UserController < ApplicationController
   def follows
     if Current.user.authenticated == true
       @user = User.find_by(username: params[:username])
-      if @user && @user.authenticate(params[:password])
+      if @user.present?
         sql = "SELECT username, name
           FROM users
           JOIN relation_follows ON users.id = relation_follows.followed_id
