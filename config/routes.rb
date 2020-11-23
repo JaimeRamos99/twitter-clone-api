@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     post '/follow', to: 'relationfollows#create'
     #unfollow user
     delete '/follow', to: 'relationfollows#destroy'
-#ff
 
 
     #create a tweet

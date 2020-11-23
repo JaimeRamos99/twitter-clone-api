@@ -47,12 +47,17 @@ class UserController < ApplicationController
 
   def followers
     if Current.user.authenticated == true
-      sql = "SELECT username, name
-       FROM users
-       JOIN relation_follows ON users.id = relation_follows.follower_id
-       WHERE followed_id=#{Current.user.id}"
-      records_array = ActiveRecord::Base.connection.execute(sql)
-      render json: records_array
+      @user = User.find_by(username: params[:username])
+      if @user && @user.authenticate(params[:password])
+        sql = "SELECT username, name
+         FROM users
+         JOIN relation_follows ON users.id = relation_follows.follower_id
+         WHERE followed_id=#{@user.id}"
+        records_array = ActiveRecord::Base.connection.execute(sql)
+        render json: records_array
+      else
+        render json: {message: "credentials not found"}, status: :unauthorized
+      end
     else
       render json: {message: "unauthorized"}, status: :unauthorized
     end
@@ -60,12 +65,17 @@ class UserController < ApplicationController
 
   def follows
     if Current.user.authenticated == true
-      sql = "SELECT username, name
-        FROM users
-        JOIN relation_follows ON users.id = relation_follows.followed_id
-        WHERE follower_id=#{Current.user.id}"
-      records_array = ActiveRecord::Base.connection.execute(sql)
-      render json: records_array
+      @user = User.find_by(username: params[:username])
+      if @user && @user.authenticate(params[:password])
+        sql = "SELECT username, name
+          FROM users
+          JOIN relation_follows ON users.id = relation_follows.followed_id
+          WHERE follower_id=#{@user.id}"
+        records_array = ActiveRecord::Base.connection.execute(sql)
+        render json: records_array
+      else
+        render json: {message: "credentials not found"}, status: :unauthorized
+      end
     else
       render json: {message: "unauthorized"}, status: :unauthorized
     end
