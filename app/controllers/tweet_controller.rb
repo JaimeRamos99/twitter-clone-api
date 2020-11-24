@@ -28,6 +28,7 @@ class TweetController < ApplicationController
     end
   end
 
+
   def list
     if Current.user.authenticated == true
       sql = "SELECT users.username, users.name, tweets.id, content, tweets.created_at
