@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     get '/profile/:username', to:'user#profile'
 
     #follow a user
-    post '/follow/:followed_username', to: 'relationfollows#create'
+    post '/follow/', to: 'relationfollows#create'
     #unfollow user
-    delete '/follow/:followed_username', to: 'relationfollows#destroy'
+    delete '/follow/', to: 'relationfollows#destroy'
 
 
     #create a tweet
