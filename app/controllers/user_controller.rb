@@ -13,6 +13,7 @@ class UserController < ApplicationController
       render json: {created: true}, status: :internal_server_error
     else
       render json: {created: false}, status: :created
+    end
   end
 
 

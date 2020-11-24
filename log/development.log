@@ -1434,3 +1434,64 @@ Completed 200 OK in 21ms (Views: 1.3ms | ActiveRecord: 5.5ms | Allocations: 5838
   [1m[36mRelationFollow Destroy (29.5ms)[0m  [1m[31mDELETE FROM "relation_follows"[0m
   [1m[36mTweet Destroy (27.9ms)[0m  [1m[31mDELETE FROM "tweets"[0m
   [1m[36mUser Destroy (133.9ms)[0m  [1m[31mDELETE FROM "users"[0m
+Started POST "/user" for ::1 at 2020-11-23 23:45:25 -0500
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/home/jaime/Documents/universidad/octavo semestre/backend/final-assignment/backend/app/controllers/user_controller.rb:102: syntax error, unexpected end-of-input, expecting `end'):
+  
+app/controllers/user_controller.rb:102: syntax error, unexpected end-of-input, expecting `end'
+app/controllers/user_controller.rb:102: syntax error, unexpected end-of-input, expecting `end'
+Started POST "/user" for ::1 at 2020-11-23 23:47:06 -0500
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UserController#create as */*
+  Parameters: {"username"=>"jaime", "email"=>"jrossetes@uninorte.edu.co", "name"=>"jaime", "password"=>"[FILTERED]", "user"=>{"username"=>"jaime", "email"=>"jrossetes@uninorte.edu.co", "name"=>"jaime"}}
+[31mUnpermitted parameter: :user[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "jrossetes@uninorte.edu.co"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "jaime"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Create (56.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "name", "auth_token", "password_digest", "emailcode", "authenticated", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["username", "jaime"], ["email", "jrossetes@uninorte.edu.co"], ["name", "jaime"], ["auth_token", "b5d21f931bc46270e5b4e4539efdf319"], ["password_digest", "$2a$12$UEdltYLNrEDXiMFWGUKfPePqk4SZMAW/j1jsQeX9W5c2v2ZnqlODG"], ["emailcode", "qkaamj9848f2c02be77a73"], ["authenticated", false], ["created_at", "2020-11-24 04:47:07.456081"], ["updated_at", "2020-11-24 04:47:07.456081"]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  Rendering register_mailer/new_confirmation_email.html.erb within layouts/mailer
+  Rendered register_mailer/new_confirmation_email.html.erb within layouts/mailer (Duration: 4.3ms | Allocations: 337)
+RegisterMailer#new_confirmation_email: processed outbound mail in 55.0ms
+  [1m[35m (0.8ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/user_controller.rb:11:in `create'
+Completed 500 Internal Server Error in 5365ms (ActiveRecord: 64.3ms | Allocations: 31601)
+
+
+  
+Net::SMTPAuthenticationError (530-5.7.0 Authentication Required. Learn more at
+):
+  
+app/models/user.rb:34:in `send_email'
+app/controllers/user_controller.rb:11:in `create'
+Started POST "/user" for ::1 at 2020-11-23 23:49:10 -0500
+Processing by UserController#create as */*
+  Parameters: {"username"=>"jaime", "email"=>"jrossetes@uninorte.edu.co", "name"=>"jaime", "password"=>"[FILTERED]", "user"=>{"username"=>"jaime", "email"=>"jrossetes@uninorte.edu.co", "name"=>"jaime"}}
+[31mUnpermitted parameter: :user[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "jrossetes@uninorte.edu.co"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "jaime"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "name", "auth_token", "password_digest", "emailcode", "authenticated", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["username", "jaime"], ["email", "jrossetes@uninorte.edu.co"], ["name", "jaime"], ["auth_token", "809b91d70a7597e41bb7ad4c81163a4b"], ["password_digest", "$2a$12$jE9nLPEst4Adh1xTHZHBfOFFX0gNKjMaUILj1bW7zSWwZDVgJE58q"], ["emailcode", "qkaapy17fe2dcafea014af"], ["authenticated", false], ["created_at", "2020-11-24 04:49:10.804800"], ["updated_at", "2020-11-24 04:49:10.804800"]]
+  ↳ app/controllers/user_controller.rb:11:in `create'
+  Rendering register_mailer/new_confirmation_email.html.erb within layouts/mailer
+  Rendered register_mailer/new_confirmation_email.html.erb within layouts/mailer (Duration: 0.1ms | Allocations: 7)
+RegisterMailer#new_confirmation_email: processed outbound mail in 1.7ms
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/user_controller.rb:11:in `create'
+Completed 500 Internal Server Error in 4090ms (ActiveRecord: 6.8ms | Allocations: 13283)
+
+
+  
+Net::SMTPAuthenticationError (530-5.7.0 Authentication Required. Learn more at
+):
+  
+app/models/user.rb:34:in `send_email'
+app/controllers/user_controller.rb:11:in `create'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
