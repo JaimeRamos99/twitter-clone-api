@@ -1429,3 +1429,8 @@ Processing by UserController#login as */*
 Completed 200 OK in 21ms (Views: 1.3ms | ActiveRecord: 5.5ms | Allocations: 5838)
 
 
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Destroy (97.3ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[36mRelationFollow Destroy (29.5ms)[0m  [1m[31mDELETE FROM "relation_follows"[0m
+  [1m[36mTweet Destroy (27.9ms)[0m  [1m[31mDELETE FROM "tweets"[0m
+  [1m[36mUser Destroy (133.9ms)[0m  [1m[31mDELETE FROM "users"[0m

@@ -18,9 +18,9 @@ class UserController < ApplicationController
 
   def confirmation
     @user = User.find_by(username: params[:user])
-    if (@user && (@user.emailcode == params[:emailcode]) && @user.authenticated == false)
-      @user.update_attribute(:authenticated,true)
-      render json:{updated: true}, status: :ok
+    if (@user.present? && (@user.emailcode == params[:emailcode]) && @user.authenticated == false)
+      @user.update_attribute(:authenticated, true)
+      render json: {updated: true}, status: :ok
     else
       render json: {updated: false}, status: :not_found
     end
@@ -30,7 +30,7 @@ class UserController < ApplicationController
   def login
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password]) && @user.authenticated == true
-      render json:{logged: true, auth_token: @user.auth_token, username: @user.username, name: @user.name}, status: :ok
+      render json: {logged: true, auth_token: @user.auth_token, username: @user.username, name: @user.name}, status: :ok
     else
       render json: {logged: false}, status: :unauthorized
     end
