@@ -88,7 +88,7 @@ class UserController < ApplicationController
   def profile
     if Current.user.authenticated == true
       @user = User.find_by(username: params[:username])
-      render json: @user, status: :ok
+      render json: @user, current_user: Current.user.id, status: :ok
     end
   end
 

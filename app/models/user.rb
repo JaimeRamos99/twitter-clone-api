@@ -9,16 +9,18 @@ class User < ApplicationRecord
   validates :password_digest, presence:true
   before_create :create_code
   after_initialize :generate_auth_token
-  after_create :send_email
-
+  
+  if Rails.env.production?
+    after_create :send_email
+  end
 
 
   def create_code
     self.emailcode = "#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(8)}"
-    if Rails.env.test?
-      self.authenticated = true
-    else
+    if Rails.env.production?
       self.authenticated = false
+    else
+      self.authenticated = true
     end
   end
 
