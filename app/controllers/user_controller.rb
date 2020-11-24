@@ -9,7 +9,10 @@ class UserController < ApplicationController
 
   def create
     @user = User.create!(create_user_params)
-    render json: @user, status: :created
+    if @user.present?
+      render json: {created: true}, status: :internal_server_error
+    else
+      render json: {created: false}, status: :created
   end
 
 
@@ -27,9 +30,9 @@ class UserController < ApplicationController
   def login
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password]) && @user.authenticated == true
-      render json:{auth_token: @user.auth_token, username: @user.username, name: @user.name}, status: :ok
+      render json:{logged: true, auth_token: @user.auth_token, username: @user.username, name: @user.name}, status: :ok
     else
-      render json: {message: "credentials not found"}, status: :unauthorized
+      render json: {logged: false}, status: :unauthorized
     end
   end
 
@@ -40,7 +43,7 @@ class UserController < ApplicationController
       @user.destroy
       render json: { deleted: true }, status: :accepted
     else
-      render json: {message: "credentials not found", deleted: false}, status: :unauthorized
+      render json: { deleted: false}, status: :unauthorized
     end
   end
 

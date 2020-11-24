@@ -9,12 +9,12 @@ class RelationfollowsController < ApplicationController
         @rel = RelationFollow.create!(follower_id: Current.user.id,
                                       followed_id: followed_user.id
                                      )
-        render json: { followed: true }, status: :ok
+        render json: {followed: true}, status: :ok
       else
-        render json: { error: "unauthorized"}, status: :unauthorized
+        render json: {followed: false}, status: :unauthorized
       end
     else
-      render json: { error: "no user to follow"}, status: :not_found
+      render json: { followed: false}, status: :not_found
     end
   end
 
@@ -27,10 +27,10 @@ class RelationfollowsController < ApplicationController
         relation.destroy
         render json: { unfollowed: true }, status: :accepted
       else
-        render json: { error: 'unauthorized'}, status: :unauthorized
+        render json: { unfollowed: false}, status: :unauthorized
       end
     else
-      render json: { error: 'unauthorized'}, status: :unauthorized
+      render json: { unfollowed: false}, status: :unauthorized
     end
   end
 
