@@ -6,7 +6,7 @@ class RelationfollowsController < ApplicationController
     followed_user = User.find_by(username: params[:followed_username])
     if followed_user.present?
       if Current.user.id != followed_user.id && Current.user.authenticated
-        followed_before = Current.user.following.find(followed_user.id)
+        followed_before =  RelationFollow.find_by(follower_id: Current.user.id, followed_id: followed_user.id)
         if followed_before.present?
           render json: {followed: false}, status: :not_acceptable
         else
