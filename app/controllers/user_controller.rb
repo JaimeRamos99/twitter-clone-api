@@ -58,7 +58,7 @@ class UserController < ApplicationController
          JOIN relation_follows ON users.id = relation_follows.follower_id
          WHERE followed_id=#{@user.id}"
         records_array = ActiveRecord::Base.connection.execute(sql)
-        render json: records_array
+        render json: {followers: records_array}
       else
         render json: {message: "credentials not found"}, status: :unauthorized
       end
@@ -76,7 +76,7 @@ class UserController < ApplicationController
           JOIN relation_follows ON users.id = relation_follows.followed_id
           WHERE follower_id=#{@user.id}"
         records_array = ActiveRecord::Base.connection.execute(sql)
-        render json: records_array
+        render json: {following: records_array}
       else
         render json: {message: "credentials not found"}, status: :unauthorized
       end

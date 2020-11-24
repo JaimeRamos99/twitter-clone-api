@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get '/follows', to: 'user#follows'
 
     #delete a user
-    delete '/user', to: 'user#destroy'
+    #delete '/user', to: 'user#destroy'
 
     #get profile info of any user, passing the username desired
     get '/profile', to:'user#profile'

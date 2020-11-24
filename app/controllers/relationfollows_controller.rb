@@ -3,7 +3,7 @@ class RelationfollowsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
 
   def create
-    followed_user = User.find_by(username: params[:followed])
+    followed_user = User.find_by(username: params[:followed_username])
     if followed_user.present?
       if Current.user.id != followed_user.id && Current.user.authenticated
         @rel = RelationFollow.create!(follower_id: Current.user.id,
