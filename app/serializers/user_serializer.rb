@@ -12,9 +12,11 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def followed_before
-    puts "--------------------"
-    puts @instance_options[:current_user]
-    puts "--------------------"
+    followed_before =  RelationFollow.find_by(follower_id: @instance_options[:current_user], followed_id: self.object.id)
+    if followed_before.present?
+      return true
+    end
+    return false
   end
 
 end

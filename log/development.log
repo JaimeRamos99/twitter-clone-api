@@ -1726,3 +1726,50 @@ Completed 500 Internal Server Error in 529ms (Views: 1.7ms | ActiveRecord: 267.1
 
 
   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started GET "/profile/jaime" for ::1 at 2020-11-24 17:38:05 -0500
+Processing by UserController#profile as */*
+  Parameters: {"username"=>"jaime", "user"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "57cb0daa36b53c009dd71fb43a0591b4"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 1249)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started GET "/profile/jaime" for ::1 at 2020-11-24 17:39:02 -0500
+Processing by UserController#profile as */*
+  Parameters: {"username"=>"jaime", "user"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "jaime"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:90:in `profile'
+[active_model_serializers]   [1m[36mRelationFollow Load (162.9ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."followed_id" = $1[0m  [["followed_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:5:in `followers_count'
+[active_model_serializers]   [1m[36mRelationFollow Load (0.6ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."follower_id" = $1[0m  [["follower_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:10:in `following_count'
+[active_model_serializers]   [1m[36mTweet Load (88.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."user_id" = $1[0m  [["user_id", 25]]
+[active_model_serializers]   ↳ app/controllers/user_controller.rb:91:in `profile'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (335.22ms)
+Completed 200 OK in 395ms (Views: 122.0ms | ActiveRecord: 259.1ms | Allocations: 15497)
+
+
+Started GET "/profile/jaime" for ::1 at 2020-11-24 17:57:43 -0500
+Processing by UserController#profile as */*
+  Parameters: {"username"=>"jaime", "user"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "jaime"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:90:in `profile'
+[active_model_serializers]   [1m[36mRelationFollow Load (1.0ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."followed_id" = $1[0m  [["followed_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:5:in `followers_count'
+[active_model_serializers]   [1m[36mRelationFollow Load (1.0ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."follower_id" = $1[0m  [["follower_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:10:in `following_count'
+[active_model_serializers]   [1m[36mRelationFollow Load (0.7ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."follower_id" = $1 AND "relation_follows"."followed_id" = $2 LIMIT $3[0m  [["follower_id", 25], ["followed_id", 25], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:15:in `followed_before'
+[active_model_serializers]   [1m[36mTweet Load (1.8ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."user_id" = $1[0m  [["user_id", 25]]
+[active_model_serializers]   ↳ app/controllers/user_controller.rb:91:in `profile'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (39.8ms)
+Completed 200 OK in 181ms (Views: 164.9ms | ActiveRecord: 5.3ms | Allocations: 12351)
+
+
