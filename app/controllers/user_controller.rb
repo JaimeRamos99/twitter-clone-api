@@ -27,7 +27,7 @@ class UserController < ApplicationController
   def login
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password]) && @user.authenticated == true
-      render json:@user, status: :ok
+      render json:{auth_token: @user.auth_token, username: @user.username, name: @user.name}, status: :ok
     else
       render json: {message: "credentials not found"}, status: :unauthorized
     end
@@ -36,7 +36,7 @@ class UserController < ApplicationController
 
   def destroy
     @user = User.find_by(username: params[:username])
-    if @user && @user.authenticate(params[:password])
+    if @user.present? && @user.authenticate(params[:password])
       @user.destroy
       render json: { deleted: true }, status: :accepted
     else
