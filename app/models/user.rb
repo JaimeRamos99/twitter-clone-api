@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :password_digest, presence:true
   before_create :create_code
   after_initialize :generate_auth_token
-  
+
   if Rails.env.production?
     after_create :send_email
   end
@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
 
   def send_email
-    RegisterMailer.with(user: self).new_confirmation_email.deliver!
+    RegisterMailer.with(user: self).new_confirmation_email.deliver_later!
   end
 
 end

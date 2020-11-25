@@ -8,7 +8,7 @@ class RelationFollow < ApplicationRecord
 
 
   def send_email_new_follow
-    FollowerMailer.with(info: self).new_follower_email.deliver!
+    FollowerMailer.with(info: self).new_follower_email.deliver_later!
   end
 
 end
