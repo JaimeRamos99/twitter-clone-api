@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post '/user', to: 'user#create'
 
     #confirmation register
-    get '/user_confirm_register/:user/:emailcode', to: 'user#confirmation'
+    get '/user_confirm_register', to: 'user#confirmation'
 
     #user login
     post '/user_login', to: 'user#login'
