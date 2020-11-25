@@ -67,8 +67,19 @@ class LikeController < ApplicationController
   end
 
   def list
-    @tuit = Tweet.find(tweet_id)
-    if Current.user.authenticated == true && @tuit.present?
+    if Current.user.authenticated == true
+      twt_id = params[:tweet_id]
+      @tuit = Tweet.find(twt_id)
+      if @tuit.present?
+          sql = "SELECT users.username
+            FROM likes
+            JOIN users ON likes.user_id = users.id
+            WHERE tweet_id=#{@tuit.id}"
+          likers = ActiveRecord::Base.connection.execute(sql)
+          render json: likers , status: :unauthorized
+      else
+        render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
+      end
     else
       render json: { message: "unauthorized" }, status: :unauthorized
     end

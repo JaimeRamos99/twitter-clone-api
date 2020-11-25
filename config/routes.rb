@@ -51,6 +51,6 @@ Rails.application.routes.draw do
     get '/likes_count', to: 'like#count'
 
     #show likers
-    get '/likers', to: 'likers#list'
+    get '/likers', to: 'like#list'
 
 end
