@@ -78,7 +78,7 @@ class LikeController < ApplicationController
           likers = ActiveRecord::Base.connection.execute(sql)
           render json: likers , status: :unauthorized
       else
-        render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
+          render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
       end
     else
       render json: { message: "unauthorized" }, status: :unauthorized
