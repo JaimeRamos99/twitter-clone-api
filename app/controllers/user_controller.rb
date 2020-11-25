@@ -6,6 +6,9 @@ class UserController < ApplicationController
       render json: {error: e.message}, status: :unprocessable_entity
   end
 
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: { error: 'No se encontró ese registro' }, status: :not_found
+  end
 
   def create
     @user = User.create!(create_user_params)

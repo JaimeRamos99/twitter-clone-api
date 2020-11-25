@@ -2,6 +2,10 @@ class RelationfollowsController < ApplicationController
   include Secured
   before_action :authenticate_user!, only: [:create, :destroy]
 
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: { error: e.message }, status: :not_found
+  end
+
   def create
     followed_user = User.find_by(username: params[:followed_username])
     if followed_user.present?

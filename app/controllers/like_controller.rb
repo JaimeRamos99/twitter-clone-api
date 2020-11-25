@@ -1,6 +1,10 @@
 class LikeController < ApplicationController
   include Secured
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy, :count, :list]
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: { error: 'No se encontró ese registro' }, status: :not_found
+  end
 
   def create
 
@@ -41,6 +45,33 @@ class LikeController < ApplicationController
       render json: { message: "unauthorized" }, status: :unauthorized
     end
 
+  end
+
+  def count
+    if Current.user.authenticated == true
+      twt_id = params[:tweet_id]
+      @tuit = Tweet.find(twt_id)
+      if @tuit.present?
+          sql = "SELECT COUNT(*)
+            FROM likes
+            WHERE tweet_id=#{@tuit.id}"
+          likes_counter = ActiveRecord::Base.connection.execute(sql)
+
+        render json: likes_counter[0] , status: :unauthorized
+      else
+        render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
+      end
+    else
+      render json: { message: "unauthorized" }, status: :unauthorized
+    end
+  end
+
+  def list
+    @tuit = Tweet.find(tweet_id)
+    if Current.user.authenticated == true && @tuit.present?
+    else
+      render json: { message: "unauthorized" }, status: :unauthorized
+    end
   end
 
 end
