@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :tweets,  dependent: :delete_all
+  has_many :tweets, dependent: :delete_all
   has_many :followers, foreign_key: "followed_id", class_name: "RelationFollow",  dependent: :delete_all
   has_many :following, foreign_key: "follower_id", class_name: "RelationFollow",  dependent: :delete_all
+  has_many :likes, dependent: :delete_all
   validates :email, presence: true, uniqueness:true
   validates :name, presence: true
   validates :username, presence: true, uniqueness:true

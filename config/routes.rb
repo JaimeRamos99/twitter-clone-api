@@ -40,4 +40,11 @@ Rails.application.routes.draw do
     #delete a tweet
     delete '/tweet', to: 'tweet#destroy'
 
+
+    #like a post
+    post '/like', to: 'like#create'
+
+    #delete a like
+    delete '/like', to: 'like#destroy'
+
 end

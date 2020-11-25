@@ -1773,3 +1773,295 @@ Processing by UserController#profile as */*
 Completed 200 OK in 181ms (Views: 164.9ms | ActiveRecord: 5.3ms | Allocations: 12351)
 
 
+Started GET "/like" for ::1 at 2020-11-24 23:00:20 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/like"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/profile/jaime" for ::1 at 2020-11-24 23:01:15 -0500
+Processing by UserController#profile as */*
+  Parameters: {"username"=>"jaime", "user"=>{}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "jaime"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:90:in `profile'
+[active_model_serializers]   [1m[36mRelationFollow Load (0.5ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."followed_id" = $1[0m  [["followed_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:5:in `followers_count'
+[active_model_serializers]   [1m[36mRelationFollow Load (0.2ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."follower_id" = $1[0m  [["follower_id", 25]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:10:in `following_count'
+[active_model_serializers]   [1m[36mRelationFollow Load (0.3ms)[0m  [1m[34mSELECT "relation_follows".* FROM "relation_follows" WHERE "relation_follows"."follower_id" = $1 AND "relation_follows"."followed_id" = $2 LIMIT $3[0m  [["follower_id", 25], ["followed_id", 25], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/serializers/user_serializer.rb:15:in `followed_before'
+[active_model_serializers]   [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."user_id" = $1[0m  [["user_id", 25]]
+[active_model_serializers]   ↳ app/controllers/user_controller.rb:91:in `profile'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (44.55ms)
+Completed 200 OK in 79ms (Views: 57.3ms | ActiveRecord: 9.0ms | Allocations: 16676)
+
+
+Started POST "/tweet" for ::1 at 2020-11-24 23:01:33 -0500
+Processing by TweetController#create as */*
+  Parameters: {"content"=>"hola mundo", "tweet"=>{"content"=>"hola mundo"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[36mTweet Create (89.6ms)[0m  [1m[32mINSERT INTO "tweets" ("content", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["content", "hola mundo"], ["user_id", 25], ["created_at", "2020-11-25 04:01:33.036705"], ["updated_at", "2020-11-25 04:01:33.036705"]]
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[35m (78.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+[active_model_serializers] Rendered TweetSerializer with ActiveModelSerializers::Adapter::Attributes (1.63ms)
+Completed 201 Created in 190ms (Views: 5.8ms | ActiveRecord: 169.4ms | Allocations: 7127)
+
+
+Started POST "/tweet" for ::1 at 2020-11-24 23:02:33 -0500
+Processing by TweetController#create as */*
+  Parameters: {"like"=>9, "tweet"=>{}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 5ms (Views: 5.3ms | ActiveRecord: 0.0ms | Allocations: 1709)
+
+
+Started POST "/tweet" for ::1 at 2020-11-24 23:03:13 -0500
+Processing by TweetController#create as */*
+  Parameters: {"like"=>9, "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 500 Internal Server Error in 2ms (Views: 0.5ms | ActiveRecord: 0.3ms | Allocations: 875)
+
+
+Started POST "/like" for ::1 at 2020-11-24 23:03:25 -0500
+Processing by LikeController#create as */*
+  Parameters: {"like"=>9}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 401 Unauthorized in 2ms (Views: 0.7ms | ActiveRecord: 0.2ms | Allocations: 853)
+
+
+Started POST "/like" for ::1 at 2020-11-24 23:04:20 -0500
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 2.3ms | Allocations: 3157)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (User(#18520) expected, got 25 which is an instance of Integer(#4160)):
+  
+app/controllers/like_controller.rb:8:in `create'
+Started POST "/like" for ::1 at 2020-11-24 23:07:23 -0500
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:7:in `create'
+Completed 500 Internal Server Error in 113ms (ActiveRecord: 11.0ms | Allocations: 17452)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (User(#18200) expected, got 25 which is an instance of Integer(#4160)):
+  
+app/controllers/like_controller.rb:9:in `create'
+Started POST "/like" for ::1 at 2020-11-24 23:14:36 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:7:in `create'
+  [1m[36mCACHE Tweet Load (0.0ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (2.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Create (1.1ms)[0m  [1m[32mINSERT INTO "likes" ("tweet_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tweet_id", 9], ["user_id", 25], ["created_at", "2020-11-25 04:14:36.569754"], ["updated_at", "2020-11-25 04:14:36.569754"]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (78.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."id" != $2 AND "likes"."tweet_id" = $3 LIMIT $4[0m  [["user_id", 25], ["id", 1], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.26ms)
+Completed 200 OK in 219ms (Views: 3.2ms | ActiveRecord: 95.5ms | Allocations: 25517)
+
+
+Started POST "/like" for ::1 at 2020-11-24 23:14:46 -0500
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:7:in `create'
+  [1m[36mCACHE Tweet Load (0.0ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 200 OK in 281ms (Views: 1.1ms | ActiveRecord: 3.4ms | Allocations: 9987)
+
+
+Started POST "/like" for ::1 at 2020-11-24 23:14:51 -0500
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:7:in `create'
+  [1m[36mCACHE Tweet Load (0.0ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/like_controller.rb:9:in `create'
+  [1m[36mLike Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:9:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 17ms (Views: 0.6ms | ActiveRecord: 2.3ms | Allocations: 7615)
+
+
+Started DELETE "/like" for ::1 at 2020-11-24 23:27:11 -0500
+Processing by LikeController#destroy as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 335)
+
+
+Started DELETE "/like" for ::1 at 2020-11-24 23:27:43 -0500
+Processing by LikeController#destroy as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:27:in `destroy'
+  [1m[36mLike Load (0.5ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:29:in `destroy'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+  [1m[36mLike Destroy (0.6ms)[0m  [1m[31mDELETE FROM "likes" WHERE "likes"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+  [1m[35m (62.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+Completed 500 Internal Server Error in 112ms (ActiveRecord: 64.5ms | Allocations: 20706)
+
+
+  
+NoMethodError (undefined method `is_destroyed?' for #<Like:0x00007f4a981db750>
+Did you mean?  destroyed?):
+  
+app/controllers/like_controller.rb:32:in `destroy'
+  [1m[36mLike Load (0.4ms)[0m  [1m[34mSELECT "likes".* FROM "likes"[0m
+Started POST "/like" for ::1 at 2020-11-24 23:28:37 -0500
+Processing by LikeController#create as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:8:in `create'
+  [1m[36mCACHE Tweet Load (0.0ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[36mLike Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[36mLike Create (0.6ms)[0m  [1m[32mINSERT INTO "likes" ("tweet_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tweet_id", 9], ["user_id", 25], ["created_at", "2020-11-25 04:28:37.407810"], ["updated_at", "2020-11-25 04:28:37.407810"]]
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[35m (53.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/like_controller.rb:10:in `create'
+  [1m[36mLike Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."id" != $2 AND "likes"."tweet_id" = $3 LIMIT $4[0m  [["user_id", 25], ["id", 2], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:10:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.25ms)
+Completed 200 OK in 117ms (Views: 2.5ms | ActiveRecord: 68.3ms | Allocations: 22588)
+
+
+  [1m[36mLike Load (1.0ms)[0m  [1m[34mSELECT "likes".* FROM "likes"[0m
+Started DELETE "/like" for ::1 at 2020-11-24 23:28:48 -0500
+Processing by LikeController#destroy as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.2ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:27:in `destroy'
+  [1m[36mLike Load (0.5ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:29:in `destroy'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+  [1m[36mLike Destroy (0.3ms)[0m  [1m[31mDELETE FROM "likes" WHERE "likes"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+  [1m[35m (39.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/like_controller.rb:31:in `destroy'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.15ms)
+Completed 202 Accepted in 50ms (Views: 1.3ms | ActiveRecord: 40.4ms | Allocations: 3898)
+
+
+  [1m[36mLike Load (0.3ms)[0m  [1m[34mSELECT "likes".* FROM "likes"[0m
+Started DELETE "/like" for ::1 at 2020-11-24 23:28:55 -0500
+Processing by LikeController#destroy as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.2ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:27:in `destroy'
+  [1m[36mLike Load (0.3ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:29:in `destroy'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 202 Accepted in 5ms (Views: 0.8ms | ActiveRecord: 0.6ms | Allocations: 1888)
+
+
+Started DELETE "/like" for ::1 at 2020-11-24 23:28:58 -0500
+Processing by LikeController#destroy as */*
+  Parameters: {"tweet_id"=>9, "like"=>{"tweet_id"=>9}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:27:in `destroy'
+  [1m[36mLike Load (0.7ms)[0m  [1m[34mSELECT "likes".* FROM "likes" WHERE "likes"."user_id" = $1 AND "likes"."tweet_id" = $2 LIMIT $3[0m  [["user_id", 25], ["tweet_id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:29:in `destroy'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 202 Accepted in 7ms (Views: 0.7ms | ActiveRecord: 1.3ms | Allocations: 1906)
+
+
