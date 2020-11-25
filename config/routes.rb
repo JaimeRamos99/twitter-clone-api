@@ -48,9 +48,18 @@ Rails.application.routes.draw do
     delete '/like', to: 'like#destroy'
 
     #count number of likes of a tweet
-    get '/likes_count', to: 'like#count'
+    get '/likes_count/:tweet_id', to: 'like#count'
 
-    #show likers
-    get '/likers', to: 'like#list'
+    #show users that like a tweet
+    get '/likers/:tweet_id', to: 'like#list'
+
+
+
+
+    #chat between two users
+    post '/message', to: 'chat#create'
+
+    #get conversation between two users
+    get '/chat', to: 'chat#list'
 
 end
