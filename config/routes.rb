@@ -68,4 +68,8 @@ Rails.application.routes.draw do
 
     #list comments of a post
     get '/comments/:tweet_id', to: 'comment#list'
+
+
+    #given a string search for a user that match
+    get '/search_users/:pattern', to: 'user#search'
 end

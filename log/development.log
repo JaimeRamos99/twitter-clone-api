@@ -3642,3 +3642,72 @@ Processing by CommentController#create as */*
 Completed 200 OK in 68ms (Views: 0.5ms | ActiveRecord: 49.1ms | Allocations: 6143)
 
 
+Started GET "/search_users/jai" for ::1 at 2020-11-26 02:55:31 -0500
+Processing by UserController#search as */*
+  Parameters: {"pattern"=>"jai", "user"=>{}}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 713)
+
+
+  
+NoMethodError (undefined method `authenticated' for nil:NilClass):
+  
+app/controllers/user_controller.rb:100:in `search'
+Started GET "/search_users/jai" for ::1 at 2020-11-26 02:56:01 -0500
+Processing by UserController#search as */*
+  Parameters: {"pattern"=>"jai", "user"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT username, name
+          FROM users
+          WHERE username LIKE jai%[0m
+  ↳ app/controllers/user_controller.rb:106:in `search'
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 8.0ms | Allocations: 6234)
+
+
+  
+ActiveRecord::StatementInvalid (PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 3:           WHERE username LIKE jai%
+                                          ^
+):
+  
+app/controllers/user_controller.rb:106:in `search'
+Started GET "/search_users/jai" for ::1 at 2020-11-26 02:58:26 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UserController#search as */*
+  Parameters: {"pattern"=>"jai", "user"=>{}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT username, name
+          FROM users
+          WHERE username LIKE 'jai%'[0m
+  ↳ app/controllers/user_controller.rb:106:in `search'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.11ms)
+Completed 200 OK in 65ms (Views: 2.6ms | ActiveRecord: 4.9ms | Allocations: 7421)
+
+
+Started GET "/search_users/ja" for ::1 at 2020-11-26 02:58:33 -0500
+Processing by UserController#search as */*
+  Parameters: {"pattern"=>"ja", "user"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT username, name
+          FROM users
+          WHERE username LIKE 'ja%'[0m
+  ↳ app/controllers/user_controller.rb:106:in `search'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.06ms)
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.6ms | Allocations: 1164)
+
+
+Started GET "/search_users/j" for ::1 at 2020-11-26 02:58:41 -0500
+Processing by UserController#search as */*
+  Parameters: {"pattern"=>"j", "user"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT username, name
+          FROM users
+          WHERE username LIKE 'j%'[0m
+  ↳ app/controllers/user_controller.rb:106:in `search'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.07ms)
+Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.6ms | Allocations: 1196)
+
+

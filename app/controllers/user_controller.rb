@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   include Secured
-  before_action :authenticate_user!, only: [:followers, :follows, :profile]
+  before_action :authenticate_user!, only: [:followers, :follows, :profile, :search]
 
   rescue_from ActiveRecord::RecordInvalid do |e|
       render json: {error: e.message}, status: :unprocessable_entity
@@ -92,6 +92,24 @@ class UserController < ApplicationController
     if Current.user.authenticated == true
       @user = User.find_by(username: params[:username])
       render json: @user, current_user: Current.user.id, status: :ok
+    end
+  end
+
+
+  def search
+    if Current.user.authenticated == true
+      pattern = params[:pattern]
+      if pattern.present?
+        sql = "SELECT username, name
+          FROM users
+          WHERE username LIKE '#{pattern}%'"
+        matches = ActiveRecord::Base.connection.execute(sql)
+        render json: matches, status: :ok
+      else
+        render json: { message: "No pattern specified" }, status: :not_acceptable
+      end
+    else
+      render json: { message: "unauthorized" }, status: :unauthorized
     end
   end
 
