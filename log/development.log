@@ -3711,3 +3711,282 @@ Processing by UserController#search as */*
 Completed 200 OK in 6ms (Views: 0.5ms | ActiveRecord: 0.6ms | Allocations: 1196)
 
 
+Started GET "/hashtag/hola" for ::1 at 2020-11-26 09:49:41 -0500
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/hashtag/hola"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/hashtag" for ::1 at 2020-11-26 09:50:56 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT username, name, tweets.content, tweets.created_at
+          FROM tweets
+          JOIN users ON users.id = tweets.user_id
+          WHERE username LIKE '%hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:75:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.25ms)
+Completed 200 OK in 43ms (Views: 3.3ms | ActiveRecord: 7.5ms | Allocations: 10670)
+
+
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets"[0m
+Started POST "/hashtag" for ::1 at 2020-11-26 09:51:59 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT username, name, tweets.content, tweets.created_at
+          FROM tweets
+          WHERE username LIKE '%hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 500 Internal Server Error in 18ms (Views: 0.7ms | ActiveRecord: 4.3ms | Allocations: 9460)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:52:10 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE username LIKE '%hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 500 Internal Server Error in 20ms (Views: 0.5ms | ActiveRecord: 5.4ms | Allocations: 9448)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:52:46 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.17ms)
+Completed 200 OK in 18ms (Views: 1.0ms | ActiveRecord: 4.5ms | Allocations: 9456)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:52:55 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"holas", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%holas%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.04ms)
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.6ms | Allocations: 1111)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:53:07 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"holas", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%holas%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.08ms)
+Completed 200 OK in 20ms (Views: 0.7ms | ActiveRecord: 5.0ms | Allocations: 9375)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:53:11 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.09ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.4ms | Allocations: 1150)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:53:31 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.13ms)
+Completed 200 OK in 68ms (Views: 1.9ms | ActiveRecord: 4.8ms | Allocations: 9378)
+
+
+Started POST "/tweet" for ::1 at 2020-11-26 09:54:53 -0500
+Processing by TweetController#create as */*
+  Parameters: {"content"=>"#hola mundo", "tweet"=>{"content"=>"#hola mundo"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "57cb0daa36b53c009dd71fb43a0591b4"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.04ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 808)
+
+
+Started POST "/tweet" for ::1 at 2020-11-26 09:55:15 -0500
+Processing by TweetController#create as */*
+  Parameters: {"content"=>"#hola mundo", "tweet"=>{"content"=>"#hola mundo"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[36mTweet Create (26.5ms)[0m  [1m[32mINSERT INTO "tweets" ("content", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["content", "#hola mundo"], ["user_id", 25], ["created_at", "2020-11-26 14:55:15.037872"], ["updated_at", "2020-11-26 14:55:15.037872"]]
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[35m (56.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+[active_model_serializers] Rendered TweetSerializer with ActiveModelSerializers::Adapter::Attributes (1.86ms)
+Completed 201 Created in 153ms (Views: 44.2ms | ActiveRecord: 84.9ms | Allocations: 10719)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:55:31 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.09ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.3ms | Allocations: 1150)
+
+
+Started POST "/tweet" for ::1 at 2020-11-26 09:55:45 -0500
+Processing by TweetController#create as */*
+  Parameters: {"content"=>"#holaaas mundo", "tweet"=>{"content"=>"#holaaas mundo"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[36mTweet Create (0.4ms)[0m  [1m[32mINSERT INTO "tweets" ("content", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["content", "#holaaas mundo"], ["user_id", 25], ["created_at", "2020-11-26 14:55:45.571773"], ["updated_at", "2020-11-26 14:55:45.571773"]]
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+  [1m[35m (32.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/tweet_controller.rb:24:in `create'
+[active_model_serializers] Rendered TweetSerializer with ActiveModelSerializers::Adapter::Attributes (0.42ms)
+Completed 201 Created in 40ms (Views: 0.9ms | ActiveRecord: 33.0ms | Allocations: 3788)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:55:48 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.12ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.6ms | Allocations: 1187)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:56:19 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.04ms)
+Completed 200 OK in 16ms (Views: 0.9ms | ActiveRecord: 5.0ms | Allocations: 9421)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:56:30 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.09ms)
+Completed 200 OK in 18ms (Views: 0.6ms | ActiveRecord: 5.3ms | Allocations: 9437)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:58:23 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.09ms)
+Completed 200 OK in 17ms (Views: 0.6ms | ActiveRecord: 4.4ms | Allocations: 9363)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:58:54 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '#hola%'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.12ms)
+Completed 200 OK in 18ms (Views: 0.6ms | ActiveRecord: 5.6ms | Allocations: 9477)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 09:59:05 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '#hola'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.05ms)
+Completed 200 OK in 21ms (Views: 0.7ms | ActiveRecord: 5.0ms | Allocations: 9381)
+
+
+Started POST "/hashtag" for ::1 at 2020-11-26 10:00:00 -0500
+Processing by TweetController#hashtag as */*
+  Parameters: {"hashtag"=>"hola", "tweet"=>{}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%#hola %'[0m
+  ↳ app/controllers/tweet_controller.rb:74:in `hashtag'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.09ms)
+Completed 200 OK in 21ms (Views: 0.6ms | ActiveRecord: 4.3ms | Allocations: 9400)
+
+

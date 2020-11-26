@@ -72,4 +72,9 @@ Rails.application.routes.draw do
 
     #given a string search for a user that match
     get '/search_users/:pattern', to: 'user#search'
+
+
+    #get tweets that belongs to a hashtag
+    post '/hashtag', to: 'tweet#hashtag'
+
 end

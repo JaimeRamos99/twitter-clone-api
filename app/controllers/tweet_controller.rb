@@ -1,7 +1,7 @@
 class TweetController < ApplicationController
 
   include Secured
-  before_action :authenticate_user!, only: [:create, :destroy, :list, :list_own, :user_info]
+  before_action :authenticate_user!, only: [:create, :destroy, :list, :list_own, :user_info, :hashtag]
 
 
   rescue_from Exception do |e|
@@ -62,6 +62,25 @@ class TweetController < ApplicationController
       render json: { error: "unauthorized" }, status: :unauthorized
     end
   end
+
+
+  def hashtag
+    if Current.user.authenticated == true
+      hasht = params[:hashtag]
+      if hasht.present?
+        sql = "SELECT tweets.content, tweets.created_at
+          FROM tweets
+          WHERE tweets.content LIKE '%##{hasht} %'"
+        matches = ActiveRecord::Base.connection.execute(sql)
+        render json: matches, status: :ok
+      else
+        render json: {message: "not hashtag found"}, status: :not_acceptable
+      end
+    else
+      render json: { error: "unauthorized" }, status: :unauthorized
+    end
+  end
+
 
   private
 

@@ -32,7 +32,7 @@ class ChatController < ApplicationController
         sql = "SELECT message, sender_id, username AS other_user, chats.created_at
           FROM chats
           JOIN users ON users.id = #{@user_2}
-          WHERE sender_id=#{@user_1} AND receiver_id=#{@user_2} OR sender_id=#{@user_2} AND receiver_id=#{@user_1}"
+          WHERE (sender_id=#{@user_1} AND receiver_id=#{@user_2}) OR (sender_id=#{@user_2} AND receiver_id=#{@user_1})"
         messages = ActiveRecord::Base.connection.execute(sql)
         render json: {messages: messages}, status: :ok
       else
