@@ -68,7 +68,7 @@ class LikeController < ApplicationController
 
   def list
     if Current.user.authenticated == true
-      twt_id = params[:tweet_id]
+      twt_id = params[:tweetid]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
           sql = "SELECT users.username
