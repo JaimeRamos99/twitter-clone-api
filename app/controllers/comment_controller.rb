@@ -28,7 +28,7 @@ class CommentController < ApplicationController
       if tweet.present?
         @the_tweet = Tweet.find(tweet)
         if @the_tweet.present?
-          sql = "SELECT username, comments.content, comments.created_at
+          sql = "SELECT comments.id AS comment_id, username, name, comments.content, comments.created_at
             FROM comments
             JOIN users ON users.id = comments.user_id
             WHERE tweet_id =#{tweet}"
