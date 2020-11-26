@@ -48,10 +48,10 @@ Rails.application.routes.draw do
     delete '/like', to: 'like#destroy'
 
     #count number of likes of a tweet
-    get '/likes_count/:tweetid', to: 'like#count'
+    get '/likes_count/:tweet_id', to: 'like#count'
 
     #show users that like a tweet
-    get '/likers/:tweetid', to: 'like#list'
+    get '/likers/:tweet_id', to: 'like#list'
 
 
 

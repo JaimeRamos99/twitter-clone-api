@@ -1,6 +1,6 @@
 class LikeController < ApplicationController
   include Secured
-  before_action :authenticate_user!, only: [:create, :destroy, :count, :list]
+  before_action :authenticate_user!, only: [:create, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound do |e|
     render json: { error: 'No se encontró ese registro' }, status: :not_found
