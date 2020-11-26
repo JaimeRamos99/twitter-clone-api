@@ -32,7 +32,7 @@ class ChatController < ApplicationController
       @user_2 = params[:user2_id]
 
       if @user_1.present? && @user_2.present?
-        sql = "SELECT chats.id, message, sender_id, receiver_id chats.created_at
+        sql = "SELECT chats.id, message, sender_id, receiver_id, chats.created_at
           FROM chats
           WHERE (sender_id=#{@user_1} AND receiver_id=#{@user_2}) OR (sender_id=#{@user_2} AND receiver_id=#{@user_1})"
         messages = ActiveRecord::Base.connection.execute(sql)
