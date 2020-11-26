@@ -30,7 +30,7 @@ class CommentController < ApplicationController
         if @the_tweet.present?
           sql = "SELECT username, comments.content, comments.created_at
             FROM comments
-            JOIN users ON user.id = comments.user_id
+            JOIN users ON users.id = comments.user_id
             WHERE tweet_id =#{tweet}"
           matches = ActiveRecord::Base.connection.execute(sql)
           render json: matches, status: :ok

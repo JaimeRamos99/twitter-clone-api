@@ -22,7 +22,9 @@ class RetweetController < ApplicationController
         the_tweet = Tweet.find(@tweet_id)
         if the_tweet.present?
           valid = Retweet.create(tweet_id: @tweet_id, user_id: Current.use.id).valid?
+          render json: { created: valid}, status: :ok
         else
+          render json: { created: false}, status: :ok
         end
       else
         render json: {message: "no tweet id found"}, status: :not_acceptable
