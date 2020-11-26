@@ -28,7 +28,12 @@ class CommentController < ApplicationController
       if tweet.present?
         @the_tweet = Tweet.find(tweet)
         if @the_tweet.present?
-            @comments = @the_tweet.comments.all
+          sql = "SELECT username, comments.content, comments.created_at
+            FROM comments
+            JOIN users ON user.id = comments.user_id
+            WHERE tweet_id =#{tweet}"
+          matches = ActiveRecord::Base.connection.execute(sql)
+          render json: matches, status: :ok
             render json: {comments: @comments}, status: :ok
         else
           render json: { message: "tweet not found" }, status: :not_acceptable

@@ -74,7 +74,7 @@ class TweetController < ApplicationController
         matches = ActiveRecord::Base.connection.execute(sql)
         render json: matches, status: :ok
       else
-        render json: {message: "not hashtag found"}, status: :not_acceptable
+        render json: {message: "no hashtag found"}, status: :not_acceptable
       end
     else
       render json: { error: "unauthorized" }, status: :unauthorized

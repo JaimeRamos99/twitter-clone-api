@@ -80,4 +80,10 @@ Rails.application.routes.draw do
     #mention a user in a tweet
     post '/mention', to: 'tweet#mention'
 
+    #quote or just retweet
+    post '/quote', to: 'retweet#create'
+
+    #get numbers of times a tweet has been retweed
+    get '/rt_counts/:tweet_id', to: 'retweet#counts'
+
 end
