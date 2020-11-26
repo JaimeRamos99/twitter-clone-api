@@ -67,6 +67,6 @@ Rails.application.routes.draw do
     post '/comment', to: 'comment#create'
 
     #list comments of a post
-    get '/comment', to: 'comment#list'
+    get '/comments/:tweet_id', to: 'comment#list'
 
 end

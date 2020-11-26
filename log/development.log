@@ -3564,3 +3564,44 @@ Completed 200 OK in 319ms (Views: 2.7ms | ActiveRecord: 169.6ms | Allocations: 2
 
 
   [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+Started GET "/comments/9" for ::1 at 2020-11-26 01:15:33 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CommentController#list as */*
+  Parameters: {"tweet_id"=>"9", "comment"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:29:in `list'
+Completed 500 Internal Server Error in 82ms (ActiveRecord: 10.3ms | Allocations: 15390)
+
+
+  
+NoMethodError (undefined method `comments' for nil:NilClass):
+  
+app/controllers/comment_controller.rb:31:in `list'
+Started GET "/comments/9" for ::1 at 2020-11-26 01:18:08 -0500
+Processing by CommentController#list as */*
+  Parameters: {"tweet_id"=>"9", "comment"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:29:in `list'
+[active_model_serializers]   [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."tweet_id" = $1[0m  [["tweet_id", 9]]
+[active_model_serializers]   ↳ app/controllers/comment_controller.rb:32:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (10.62ms)
+Completed 200 OK in 52ms (Views: 9.6ms | ActiveRecord: 10.7ms | Allocations: 19908)
+
+
+Started GET "/comments/9" for ::1 at 2020-11-26 01:21:55 -0500
+Processing by CommentController#list as */*
+  Parameters: {"tweet_id"=>"9", "comment"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:29:in `list'
+[active_model_serializers]   [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."tweet_id" = $1[0m  [["tweet_id", 9]]
+[active_model_serializers]   ↳ app/controllers/comment_controller.rb:32:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (10.83ms)
+Completed 200 OK in 51ms (Views: 9.5ms | ActiveRecord: 13.7ms | Allocations: 17803)
+
+
