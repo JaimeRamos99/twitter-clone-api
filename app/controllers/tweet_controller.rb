@@ -82,6 +82,26 @@ class TweetController < ApplicationController
   end
 
 
+  def mention
+    if Current.user.authenticated == true
+      mention = params[:mention]
+      if mention.present?
+        user_found = User.find_by(username: mention[1..-1])
+        if user_found.present?
+          MentionMailer.with(mentioned_user: user_found, mentioner: Current.user.username).new_mention_email.deliver_later!
+          render json: { sent: true }, status: :ok
+        else
+          render json: { sent: false }, status: :not_found
+        end
+      else
+        render json: { sent: false }, status: :not_found
+      end
+    else
+      render json: { error: "unauthorized" }, status: :unauthorized
+    end
+  end
+
+
   private
 
   def create_params

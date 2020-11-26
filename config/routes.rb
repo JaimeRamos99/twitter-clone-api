@@ -77,4 +77,7 @@ Rails.application.routes.draw do
     #get tweets that belongs to a hashtag
     post '/hashtag', to: 'tweet#hashtag'
 
+    #mention a user in a tweet
+    post '/mention', to: 'tweet#mention'
+
 end

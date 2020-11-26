@@ -13,9 +13,9 @@ class UserController < ApplicationController
   def create
     @user = User.create!(create_user_params)
     if @user.present?
-      render json: {created: true}, status: :internal_server_error
+      render json: {created: true}, status: :created
     else
-      render json: {created: false}, status: :created
+      render json: {created: false}, status: :internal_server_error
     end
   end
 
