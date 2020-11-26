@@ -34,7 +34,6 @@ class CommentController < ApplicationController
             WHERE tweet_id =#{tweet}"
           matches = ActiveRecord::Base.connection.execute(sql)
           render json: matches, status: :ok
-            render json: {comments: @comments}, status: :ok
         else
           render json: { message: "tweet not found" }, status: :not_acceptable
         end
