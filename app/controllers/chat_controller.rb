@@ -25,8 +25,19 @@ class ChatController < ApplicationController
 
   def list
     if Current.user.authenticated == true
-      user_1 = Current.user.id
-      user_2 = params[:user2_id]
+      @user_1 = Current.user.id
+      @user_2 = params[:user2_id]
+
+      if @user_1.present? && @user_2.present?
+        sql = "SELECT message, sender_id, receiver_id, created_at
+          FROM chats
+          WHERE sender_id=#{@user_1} AND receiver_id=#{@user_2} OR sender_id=#{@user_2} AND receiver_id=#{@user_1}"
+        messages = ActiveRecord::Base.connection.execute(sql)
+        render json: {messages: messages}, status: :ok
+      else
+        render json: { messages: "Invalid params" }, status: :not_acceptable
+      end
+
     else
       render json: { message: "unauthorized" }, status: :unauthorized
     end

@@ -3248,3 +3248,97 @@ Completed 200 OK in 127ms (Views: 6.0ms | ActiveRecord: 90.3ms | Allocations: 14
   [1m[36mChat Load (1.1ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
   [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
   [1m[36mTweet Load (0.9ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets"[0m
+  [1m[36mChat Load (0.8ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+Started GET "/chat/25" for ::1 at 2020-11-26 00:02:28 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+Completed 500 Internal Server Error in 113ms (ActiveRecord: 0.6ms | Allocations: 69846)
+
+
+  
+NameError (undefined local variable or method `user_1' for #<ChatController:0x00007efdf9b54b88>
+Did you mean?  @user_1
+               @user_2):
+  
+app/controllers/chat_controller.rb:31:in `list'
+Started GET "/chat/25" for ::1 at 2020-11-26 00:02:59 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT message
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.1ms)
+Completed 200 OK in 61ms (Views: 2.9ms | ActiveRecord: 8.2ms | Allocations: 10966)
+
+
+Started GET "/chat/23" for ::1 at 2020-11-26 00:03:06 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"23", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT message
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=23 OR sender_id=23 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.05ms)
+Completed 200 OK in 8ms (Views: 2.4ms | ActiveRecord: 0.8ms | Allocations: 1135)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:03:14 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT message
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.06ms)
+Completed 200 OK in 5ms (Views: 0.4ms | ActiveRecord: 0.7ms | Allocations: 1154)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:04:39 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT message, sender_id, receiver_id
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.2ms)
+Completed 200 OK in 26ms (Views: 1.1ms | ActiveRecord: 7.7ms | Allocations: 9423)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:04:54 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT message, sender_id, receiver_id, created_at
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with PG::Result (0.39ms)
+Completed 200 OK in 74ms (Views: 3.1ms | ActiveRecord: 4.9ms | Allocations: 9423)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:06:32 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT message, sender_id, receiver_id, created_at
+          FROM chats
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:35:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.2ms)
+Completed 200 OK in 21ms (Views: 0.9ms | ActiveRecord: 6.6ms | Allocations: 9402)
+
+

@@ -59,6 +59,6 @@ Rails.application.routes.draw do
     post '/message', to: 'chat#create'
 
     #get conversation between two users
-    get '/chat', to: 'chat#list'
+    get '/chat/:user2_id', to: 'chat#list'
 
 end
