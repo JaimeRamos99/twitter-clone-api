@@ -55,7 +55,6 @@ Rails.application.routes.draw do
 
 
 
-
     #chat between two users
     post '/message', to: 'chat#create'
 
