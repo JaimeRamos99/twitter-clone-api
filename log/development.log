@@ -3342,3 +3342,225 @@ Processing by ChatController#list as */*
 Completed 200 OK in 21ms (Views: 0.9ms | ActiveRecord: 6.6ms | Allocations: 9402)
 
 
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6671199748738134225)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateComments (20201126052032)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (182.3ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "content" character varying, "tweet_id" bigint NOT NULL, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_bea193dd32"
+FOREIGN KEY ("tweet_id")
+  REFERENCES "tweets" ("id")
+, CONSTRAINT "fk_rails_03de2dc08c"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (87.9ms)[0m  [1m[35mCREATE  INDEX  "index_comments_on_tweet_id" ON "comments"  ("tweet_id")[0m
+  [1m[35m (66.7ms)[0m  [1m[35mCREATE  INDEX  "index_comments_on_user_id" ON "comments"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201126052032"]]
+  [1m[35m (26.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6671199748738134225)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/chat/25" for ::1 at 2020-11-26 00:40:59 -0500
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (26.2ms)[0m  [1m[34mSELECT message, sender_id, receiver_id, created_at
+          FROM chats
+          JOIN users ON users.id = sender_id
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 26.9ms | Allocations: 9030)
+
+
+  
+ActiveRecord::StatementInvalid (PG::AmbiguousColumn: ERROR:  column reference "created_at" is ambiguous
+LINE 1: SELECT message, sender_id, receiver_id, created_at
+                                                ^
+):
+  
+app/controllers/chat_controller.rb:36:in `list'
+Started GET "/chat/25" for ::1 at 2020-11-26 00:41:42 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT message, sender_id, receiver_id, chats.created_at
+          FROM chats
+          JOIN users ON users.id = sender_id
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.17ms)
+Completed 200 OK in 50ms (Views: 2.3ms | ActiveRecord: 8.0ms | Allocations: 10961)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:42:28 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT message, sender_id, username, chats.created_at
+          FROM chats
+          JOIN users ON users.id = receiver_id
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.15ms)
+Completed 200 OK in 21ms (Views: 0.9ms | ActiveRecord: 6.6ms | Allocations: 9431)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:43:55 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT message, sender_id, username, chats.created_at
+          FROM chats
+          JOIN users ON users.id = 25
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 23ms (Views: 0.6ms | ActiveRecord: 6.7ms | Allocations: 9403)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:44:36 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT message, sender_id, username AS other_user, chats.created_at
+          FROM chats
+          JOIN users ON users.id = 25
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 200 OK in 24ms (Views: 1.0ms | ActiveRecord: 6.0ms | Allocations: 9405)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:48:24 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT message, sender_id, username AS other_user, chats.created_at
+          FROM chats
+          JOIN users ON users.id = 100
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.17ms)
+Completed 200 OK in 24ms (Views: 1.0ms | ActiveRecord: 5.8ms | Allocations: 9349)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:48:32 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT message, sender_id, username AS other_user, chats.created_at
+          FROM chats
+          JOIN users ON users.id = 100
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.6ms | Allocations: 1130)
+
+
+Started GET "/chat/25" for ::1 at 2020-11-26 00:48:37 -0500
+Processing by ChatController#list as */*
+  Parameters: {"user2_id"=>"25", "chat"=>{}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT message, sender_id, username AS other_user, chats.created_at
+          FROM chats
+          JOIN users ON users.id = 25
+          WHERE sender_id=25 AND receiver_id=25 OR sender_id=25 AND receiver_id=25[0m
+  ↳ app/controllers/chat_controller.rb:36:in `list'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 22ms (Views: 0.6ms | ActiveRecord: 5.7ms | Allocations: 9417)
+
+
+Started POST "/comment" for ::1 at 2020-11-26 00:56:55 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 40ms (Views: 1.2ms | ActiveRecord: 0.9ms | Allocations: 9067)
+
+
+  [1m[36mTweet Load (0.5ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets"[0m
+  [1m[36mComment Load (1.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+Started POST "/comment" for ::1 at 2020-11-26 00:57:37 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.3ms | Allocations: 800)
+
+
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+Started POST "/comment" for ::1 at 2020-11-26 00:58:32 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.05ms)
+Completed 200 OK in 24ms (Views: 0.6ms | ActiveRecord: 6.9ms | Allocations: 9216)
+
+
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+Started POST "/comment" for ::1 at 2020-11-26 00:59:27 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.3ms | Allocations: 800)
+
+
+Started POST "/comment" for ::1 at 2020-11-26 01:01:07 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.05ms)
+Completed 200 OK in 28ms (Views: 0.6ms | ActiveRecord: 4.6ms | Allocations: 9213)
+
+
+Started POST "/comment" for ::1 at 2020-11-26 01:02:03 -0500
+Processing by CommentController#create as */*
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.15ms)
+Completed 200 OK in 32ms (Views: 1.2ms | ActiveRecord: 4.9ms | Allocations: 9208)
+
+
+Started POST "/comment" for ::1 at 2020-11-26 01:02:33 -0500
+Processing by CommentController#create as */*
+  Parameters: {"tweet_id"=>9, "comment"=>"hola 25"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 3.8ms | Allocations: 4069)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'comment' for Comment.):
+  
+app/controllers/comment_controller.rb:20:in `create'
+Started POST "/comment" for ::1 at 2020-11-26 01:03:01 -0500
+Processing by CommentController#create as */*
+  Parameters: {"tweet_id"=>9, "comment"=>"hola 25"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/comment_controller.rb:20:in `create'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:20:in `create'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:20:in `create'
+  [1m[36mComment Create (1.5ms)[0m  [1m[32mINSERT INTO "comments" ("content", "tweet_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "hola 25"], ["tweet_id", 9], ["user_id", 25], ["created_at", "2020-11-26 06:03:01.902611"], ["updated_at", "2020-11-26 06:03:01.902611"]]
+  ↳ app/controllers/comment_controller.rb:20:in `create'
+  [1m[35m (139.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/comment_controller.rb:20:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.27ms)
+Completed 200 OK in 319ms (Views: 2.7ms | ActiveRecord: 169.6ms | Allocations: 22742)
+
+
+  [1m[36mComment Load (1.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m

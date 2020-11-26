@@ -12,7 +12,7 @@ class ChatController < ApplicationController
       sender = Current.user.id
       receiver = params[:receiver_id]
       msg = params[:message]
-      if sender.present? && receiver.present? && msg.present?
+      if sender.present? && receiver.present? && msg.present? && sender != receiver
         valid = Chat.create!(sender_id: sender, receiver_id: receiver, message: msg).valid?
         render json: { created: valid }, status: :ok
       else
@@ -29,8 +29,9 @@ class ChatController < ApplicationController
       @user_2 = params[:user2_id]
 
       if @user_1.present? && @user_2.present?
-        sql = "SELECT message, sender_id, receiver_id, created_at
+        sql = "SELECT message, sender_id, username AS other_user, chats.created_at
           FROM chats
+          JOIN users ON users.id = #{@user_2}
           WHERE sender_id=#{@user_1} AND receiver_id=#{@user_2} OR sender_id=#{@user_2} AND receiver_id=#{@user_1}"
         messages = ActiveRecord::Base.connection.execute(sql)
         render json: {messages: messages}, status: :ok

@@ -61,4 +61,12 @@ Rails.application.routes.draw do
     #get conversation between two users
     get '/chat/:user2_id', to: 'chat#list'
 
+
+
+    #create a comment to a post
+    post '/comment', to: 'comment#create'
+
+    #list comments of a post
+    get '/comment', to: 'comment#list'
+
 end
