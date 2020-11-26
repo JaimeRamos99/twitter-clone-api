@@ -21,7 +21,7 @@ class RetweetController < ApplicationController
       if @tweet_id.present?
         the_tweet = Tweet.find(@tweet_id)
         if the_tweet.present?
-          valid = Retweet.create(tweet_id: @tweet_id, user_id: Current.user.id).valid?
+          valid = Retweet.create(tweet_id: @tweet_id, user_id: Current.user.id, quote: @quote).valid?
           render json: { created: valid}, status: :ok
         else
           render json: { created: false}, status: :ok
