@@ -1,6 +1,6 @@
 class LikeController < ApplicationController
   include Secured
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy, :count, :list]
 
   rescue_from ActiveRecord::RecordNotFound do |e|
     render json: { error: 'No se encontró ese registro' }, status: :not_found
@@ -48,7 +48,8 @@ class LikeController < ApplicationController
   end
 
   def count
-      twt_id = params[:tweetid]
+    if Current.user.authenticated == true
+      twt_id = params[:tweet_id]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
           sql = "SELECT COUNT(*)
@@ -56,14 +57,18 @@ class LikeController < ApplicationController
             WHERE tweet_id=#{@tuit.id}"
           likes_counter = ActiveRecord::Base.connection.execute(sql)
 
-        render json: likes_counter[0] , status: :unauthorized
+        render json: likes_counter[0] , status: :ok
       else
         render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
       end
+    else
+      render json: { message: "unauthorized" }, status: :unauthorized
+    end
   end
 
   def list
-      twt_id = params[:tweetid]
+    if Current.user.authenticated == true
+      twt_id = params[:tweet_id]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
           sql = "SELECT users.username
@@ -71,10 +76,13 @@ class LikeController < ApplicationController
             JOIN users ON likes.user_id = users.id
             WHERE tweet_id=#{@tuit.id}"
           likers = ActiveRecord::Base.connection.execute(sql)
-          render json: likers , status: :unauthorized
+          render json: likers , status: :ok
       else
           render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
       end
+    else
+      render json: { message: "unauthorized" }, status: :unauthorized
+    end
   end
 
 end
