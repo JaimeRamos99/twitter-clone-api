@@ -3605,3 +3605,40 @@ Processing by CommentController#list as */*
 Completed 200 OK in 51ms (Views: 9.5ms | ActiveRecord: 13.7ms | Allocations: 17803)
 
 
+Started POST "/user" for ::1 at 2020-11-26 02:00:31 -0500
+Processing by UserController#create as */*
+  Parameters: {"username"=>"josue", "email"=>"jrossetes@gmail.com", "name"=>"josue", "password"=>"[FILTERED]", "user"=>{"username"=>"josue", "email"=>"jrossetes@gmail.com", "name"=>"josue"}}
+[31mUnpermitted parameter: :user[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/user_controller.rb:14:in `create'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "jrossetes@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:14:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "josue"], ["LIMIT", 1]]
+  ↳ app/controllers/user_controller.rb:14:in `create'
+  [1m[36mUser Create (51.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "name", "auth_token", "password_digest", "emailcode", "authenticated", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["username", "josue"], ["email", "jrossetes@gmail.com"], ["name", "josue"], ["auth_token", "bb22b658732ab0680220820ce320ac81"], ["password_digest", "$2a$12$NNS7py7HlVIHxXvSNZ4xY.Z7mECawV8KCZCbHvAmm6BVyvz1xtMyC"], ["emailcode", "qke64w335ed9eb64280aae"], ["authenticated", true], ["created_at", "2020-11-26 07:00:32.163392"], ["updated_at", "2020-11-26 07:00:32.163392"]]
+  ↳ app/controllers/user_controller.rb:14:in `create'
+  [1m[35m (188.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/user_controller.rb:14:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.17ms)
+Completed 500 Internal Server Error in 541ms (Views: 1.3ms | ActiveRecord: 241.0ms | Allocations: 5589)
+
+
+Started POST "/comment" for ::1 at 2020-11-26 02:01:31 -0500
+Processing by CommentController#create as */*
+  Parameters: {"tweet_id"=>9, "comment"=>"hola 25"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/comment_controller.rb:15:in `create'
+  [1m[36mTweet Load (0.5ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:15:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 25], ["LIMIT", 1]]
+  ↳ app/controllers/comment_controller.rb:15:in `create'
+  [1m[36mComment Create (0.8ms)[0m  [1m[32mINSERT INTO "comments" ("content", "tweet_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "hola 25"], ["tweet_id", 9], ["user_id", 25], ["created_at", "2020-11-26 07:01:31.966368"], ["updated_at", "2020-11-26 07:01:31.966368"]]
+  ↳ app/controllers/comment_controller.rb:15:in `create'
+  [1m[35m (47.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/comment_controller.rb:15:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 68ms (Views: 0.5ms | ActiveRecord: 49.1ms | Allocations: 6143)
+
+
