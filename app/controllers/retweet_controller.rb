@@ -30,11 +30,30 @@ class RetweetController < ApplicationController
         render json: {message: "no tweet id found"}, status: :not_acceptable
       end
     else
+      render json: { error: "unauthorized" }, status: :unauthorized
     end
   end
 
   def count
-
+    if Current.user.authenticated == true
+      @tweet_id = params[:tweet_id]
+      if @tweet_id.present?
+        the_tweet = Tweet.find(@tweet_id)
+        if the_tweet.present?
+          sql = "SELECT COUNT(*)
+            FROM retweets
+            WHERE tweet_id =#{@tweet_id}"
+          matches = ActiveRecord::Base.connection.execute(sql)
+          render json: matches, status: :ok
+        else
+          render json: { error: "not tweet found"}, status: :ok
+        end
+      else
+        render json: { error: "not tweet found"}, status: :ok
+      end
+    else
+      render json: { error: "unauthorized" }, status: :unauthorized
+    end
   end
 
 end
