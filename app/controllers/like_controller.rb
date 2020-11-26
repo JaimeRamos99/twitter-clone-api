@@ -48,7 +48,7 @@ class LikeController < ApplicationController
   end
 
   def count
-      twt_id = params[:tweet_id]
+      twt_id = params[:tweetid]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
           sql = "SELECT COUNT(*)
