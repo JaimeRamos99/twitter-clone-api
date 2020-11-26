@@ -1,9 +1,9 @@
 class ChatController < ApplicationController
   include Secured
   before_action :authenticate_user!, only: [:create, :list]
-  
+
   rescue_from Exception do |e|
-     render json: { error: e.message }, status: :internal_server_error
+     render json: { error: "Something happen, try again later" }, status: :internal_server_error
   end
   rescue_from ActiveRecord::RecordNotFound do |e|
     render json: { error: 'No se encontró ese registro' }, status: :not_found
@@ -34,8 +34,13 @@ class ChatController < ApplicationController
       if @user_1.present? && @user_2.present?
         sql = "SELECT message, sender_id, username AS other_user, chats.created_at
           FROM chats
-          JOIN users ON users.id = #{@user_2}
-          WHERE (sender_id=#{@user_1} AND receiver_id=#{@user_2}) OR (sender_id=#{@user_2} AND receiver_id=#{@user_1})"
+          JOIN users ON users.id = receiver_id
+          WHERE (sender_id=#{@user_1} AND receiver_id=#{@user_2})
+          UNION
+          SELECT message, username AS other_user, receiver_id, chats.created_at
+            FROM chats
+            JOIN users ON users.id = sender_id
+            WHERE sender_id=#{@user_2} AND receiver_id=#{@user_1}"
         messages = ActiveRecord::Base.connection.execute(sql)
         render json: {messages: messages}, status: :ok
       else
