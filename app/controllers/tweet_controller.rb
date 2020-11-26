@@ -1,7 +1,7 @@
 class TweetController < ApplicationController
 
   include Secured
-  before_action :authenticate_user!, only: [:create, :destroy, :list, :list_own, :user_info, :hashtag]
+  before_action :authenticate_user!, only: [:create, :destroy, :list, :list_own, :user_info, :hashtag, :mention]
 
 
   rescue_from Exception do |e|
