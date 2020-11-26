@@ -17,7 +17,7 @@ class RetweetController < ApplicationController
   def create
     if Current.user.authenticated == true
       @tweet_id = params[:tweet_id]
-      @quote = params[:quote] || "-1"
+      @quote = params[:quote] || "nulo"
       if @tweet_id.present?
         the_tweet = Tweet.find(@tweet_id)
         if the_tweet.present?
