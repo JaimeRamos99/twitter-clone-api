@@ -3111,3 +3111,87 @@ FOREIGN KEY ("sender")
 [0m
   [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
   [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6671199748738134225)[0m
+Started GET "/likes_count/9" for ::1 at 2020-11-25 16:47:04 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"9", "like"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (188.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:53:in `count'
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(*)
+            FROM likes
+            WHERE tweet_id=9[0m
+  ↳ app/controllers/like_controller.rb:58:in `count'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 401 Unauthorized in 278ms (Views: 2.5ms | ActiveRecord: 204.2ms | Allocations: 15117)
+
+
+Started GET "/likes_count/10" for ::1 at 2020-11-25 16:47:22 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"10", "like"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.4ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:53:in `count'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 404 Not Found in 9ms (Views: 0.5ms | ActiveRecord: 0.8ms | Allocations: 1370)
+
+
+Started GET "/likes_count/1" for ::1 at 2020-11-25 16:47:53 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"1", "like"=>{}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:53:in `count'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 404 Not Found in 7ms (Views: 0.7ms | ActiveRecord: 0.8ms | Allocations: 1366)
+
+
+Started GET "/likes_count/3" for ::1 at 2020-11-25 16:54:33 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"3", "like"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "27645ae72dbde734472e1fc2b5ce57b4"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.5ms | ActiveRecord: 0.5ms | Allocations: 898)
+
+
+Started GET "/likes_count/3" for ::1 at 2020-11-25 16:54:38 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"3", "like"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:53:in `count'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 404 Not Found in 5ms (Views: 0.6ms | ActiveRecord: 0.7ms | Allocations: 1367)
+
+
+Started GET "/likes_count/9" for ::1 at 2020-11-25 16:54:46 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"9", "like"=>{}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/like_controller.rb:53:in `count'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*)
+            FROM likes
+            WHERE tweet_id=9[0m
+  ↳ app/controllers/like_controller.rb:58:in `count'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 401 Unauthorized in 6ms (Views: 0.7ms | ActiveRecord: 1.7ms | Allocations: 1664)
+
+
+Started GET "/likes_count/9" for ::1 at 2020-11-25 17:00:18 -0500
+Processing by LikeController#count as */*
+  Parameters: {"tweet_id"=>"9", "like"=>{}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "27645ae72dbde734472e1fc2b5ce57b4"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 4ms (Views: 0.7ms | ActiveRecord: 0.6ms | Allocations: 882)
+
+
