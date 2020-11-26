@@ -84,6 +84,6 @@ Rails.application.routes.draw do
     post '/quote', to: 'retweet#create'
 
     #get numbers of times a tweet has been retweed
-    get '/rt_counts/:tweet_id', to: 'retweet#counts'
+    get '/rt_counts/:tweet_id', to: 'retweet#count'
 
 end
