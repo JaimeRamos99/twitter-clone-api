@@ -48,7 +48,6 @@ class LikeController < ApplicationController
   end
 
   def count
-    if Current.user.authenticated == true
       twt_id = params[:tweet_id]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
@@ -61,13 +60,9 @@ class LikeController < ApplicationController
       else
         render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
       end
-    else
-      render json: { message: "unauthorized" }, status: :unauthorized
-    end
   end
 
   def list
-    if Current.user.authenticated == true
       twt_id = params[:tweetid]
       @tuit = Tweet.find(twt_id)
       if @tuit.present?
@@ -80,9 +75,6 @@ class LikeController < ApplicationController
       else
           render json: { message: "there is not tweet with that ID" }, status: :not_acceptable
       end
-    else
-      render json: { message: "unauthorized" }, status: :unauthorized
-    end
   end
 
 end
