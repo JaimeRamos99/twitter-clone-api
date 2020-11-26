@@ -3,7 +3,7 @@ class ChatController < ApplicationController
   before_action :authenticate_user!, only: [:create, :list]
 
   rescue_from Exception do |e|
-     render json: { error: "Something happen, try again later" }, status: :internal_server_error
+     render json: { error: e.message }, status: :internal_server_error
   end
   rescue_from ActiveRecord::RecordNotFound do |e|
     render json: { error: 'No se encontró ese registro' }, status: :not_found
