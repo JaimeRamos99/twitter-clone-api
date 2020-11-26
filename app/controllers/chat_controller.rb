@@ -32,7 +32,7 @@ class ChatController < ApplicationController
       @user_2 = params[:user2_id]
 
       if @user_1.present? && @user_2.present?
-        sql = "SELECT message, sender_id, username AS other_user, chats.created_at
+        sql = "SELECT message, username AS other_user, sender_id, chats.created_at
           FROM chats
           JOIN users ON users.id = receiver_id
           WHERE (sender_id=#{@user_1} AND receiver_id=#{@user_2})
