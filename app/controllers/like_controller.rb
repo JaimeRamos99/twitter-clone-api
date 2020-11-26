@@ -7,7 +7,6 @@ class LikeController < ApplicationController
   end
 
   def create
-
     tweet_id = params[:tweet_id]
     @tuit = Tweet.find(tweet_id)
     if Current.user.authenticated == true && @tuit.present?

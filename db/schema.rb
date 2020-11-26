@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_202315) do
+ActiveRecord::Schema.define(version: 2020_11_26_035335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chats", force: :cascade do |t|
+    t.string "message"
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_chats_on_receiver_id"
+    t.index ["sender_id"], name: "index_chats_on_sender_id"
+  end
 
   create_table "directs", force: :cascade do |t|
     t.string "message"
@@ -71,7 +81,10 @@ ActiveRecord::Schema.define(version: 2020_11_25_202315) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-
+  add_foreign_key "chats", "users", column: "receiver_id"
+  add_foreign_key "chats", "users", column: "sender_id"
+  add_foreign_key "directs", "users", column: "receiver_id"
+  add_foreign_key "directs", "users", column: "sender_id"
   add_foreign_key "followers", "users", column: "followed_id"
   add_foreign_key "followers", "users", column: "follower_id"
   add_foreign_key "likes", "tweets"

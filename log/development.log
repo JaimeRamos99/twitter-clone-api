@@ -3195,3 +3195,56 @@ Filter chain halted as :authenticate_user! rendered or redirected
 Completed 401 Unauthorized in 4ms (Views: 0.7ms | ActiveRecord: 0.6ms | Allocations: 882)
 
 
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6671199748738134225)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateChats (20201126035335)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (184.5ms)[0m  [1m[35mCREATE TABLE "chats" ("id" bigserial primary key, "message" character varying, "sender_id" bigint NOT NULL, "receiver_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_9729155e76"
+FOREIGN KEY ("sender_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_b21078d08b"
+FOREIGN KEY ("receiver_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (62.9ms)[0m  [1m[35mCREATE  INDEX  "index_chats_on_sender_id" ON "chats"  ("sender_id")[0m
+  [1m[35m (69.1ms)[0m  [1m[35mCREATE  INDEX  "index_chats_on_receiver_id" ON "chats"  ("receiver_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201126035335"]]
+  [1m[35m (22.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6671199748738134225)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mChat Load (0.6ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started POST "/message" for ::1 at 2020-11-25 23:27:14 -0500
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ChatController#create as */*
+  Parameters: {"message"=>"hola mundo", "receiver_id"=>25, "chat"=>{"message"=>"hola mundo", "receiver_id"=>25}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+Completed 500 Internal Server Error in 134ms (ActiveRecord: 7.4ms | Allocations: 71369)
+
+
+  
+NameError (undefined local variable or method `message' for #<ChatController:0x000055e7ea83ed98>
+Did you mean?  message_url):
+  
+app/controllers/chat_controller.rb:15:in `create'
+  [1m[36mChat Load (1.2ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+Started POST "/message" for ::1 at 2020-11-25 23:28:24 -0500
+Processing by ChatController#create as */*
+  Parameters: {"message"=>"hola mundo", "receiver_id"=>25, "chat"=>{"message"=>"hola mundo", "receiver_id"=>25}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT $2[0m  [["auth_token", "3b9309d1cd88bd5fbc785ab2ad7d5eda"], ["LIMIT", 1]]
+  ↳ app/controllers/concerns/secured.rb:8:in `authenticate_user!'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/chat_controller.rb:16:in `create'
+  [1m[36mChat Create (1.0ms)[0m  [1m[32mINSERT INTO "chats" ("message", "sender_id", "receiver_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["message", "hola mundo"], ["sender_id", 25], ["receiver_id", 25], ["created_at", "2020-11-26 04:28:24.992586"], ["updated_at", "2020-11-26 04:28:24.992586"]]
+  ↳ app/controllers/chat_controller.rb:16:in `create'
+  [1m[35m (82.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/chat_controller.rb:16:in `create'
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.55ms)
+Completed 200 OK in 127ms (Views: 6.0ms | ActiveRecord: 90.3ms | Allocations: 14771)
+
+
+  [1m[36mChat Load (1.1ms)[0m  [1m[34mSELECT "chats".* FROM "chats"[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mTweet Load (0.9ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets"[0m
