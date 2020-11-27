@@ -44,7 +44,7 @@ class RetweetController < ApplicationController
             FROM retweets
             WHERE tweet_id =#{@tweet_id}"
           matches = ActiveRecord::Base.connection.execute(sql)
-          render json: {retweets: matches}, status: :ok
+          render json: matches, status: :ok
         else
           render json: { error: "not tweet found"}, status: :ok
         end
