@@ -74,8 +74,10 @@ Rails.application.routes.draw do
     get '/search_users/:pattern', to: 'user#search'
 
 
+
+
     #get tweets that belongs to a hashtag
-    post '/hashtag', to: 'tweet#hashtag'
+    get '/hashtag/:hashtag', to: 'tweet#hashtag'
 
     #mention a user in a tweet
     post '/mention', to: 'tweet#mention'
