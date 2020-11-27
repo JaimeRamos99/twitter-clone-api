@@ -74,7 +74,7 @@ class UserController < ApplicationController
     if Current.user.authenticated == true
       @user = User.find_by(username: params[:username])
       if @user.present?
-        sql = "SELECT username, name
+        sql = "SELECT users.id, username, name
           FROM users
           JOIN relation_follows ON users.id = relation_follows.followed_id
           WHERE follower_id=#{@user.id}"
