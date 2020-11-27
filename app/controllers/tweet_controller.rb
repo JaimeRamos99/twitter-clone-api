@@ -68,8 +68,9 @@ class TweetController < ApplicationController
     if Current.user.authenticated == true
       hasht = params[:hashtag]
       if hasht.present?
-        sql = "SELECT tweets.content, tweets.created_at
+        sql = "SELECT username, name, tweets.content, tweets.created_at
           FROM tweets
+          JOIN users ON users.id = tweet.user_id
           WHERE tweets.content LIKE '%##{hasht} %'"
         matches = ActiveRecord::Base.connection.execute(sql)
         render json: matches, status: :ok
